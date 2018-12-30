@@ -1,0 +1,33 @@
+{
+  "name": "free-tex-packer-cli",
+  "displayName": "Free texture packer CLI",
+  "version": "0.1.1",
+  "description": "Free texture packer CLI",
+  "url": "http://github.com/odrick/free-tex-packer-cli",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "texture",
+    "packer",
+    "texturepacker",
+    "texture-packer",
+    "sprites",
+    "spritesheet",
+    "export",
+    "sprite",
+    "2d"
+  ],
+  "bin": {
+    "free-tex-packer-cli": "./index.js"
+  },
+  "author": "Alexander Norinchak",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/odrick/free-tex-packer-cli"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "free-tex-packer-core": "^0.1.2",
+    "optimist": "^0.6.1"
+  }
+}
