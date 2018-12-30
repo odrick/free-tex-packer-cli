@@ -1,5 +1,8 @@
 # free-tex-packer-cli
-> Free texture packer CLI 
+
+[![Stats](https://nodei.co/npm/free-tex-packer-cli.png?downloads=true&stars=true)](https://www.npmjs.com/package/free-tex-packer-cli) \
+
+Free texture packer CLI 
 
 # Install
    
