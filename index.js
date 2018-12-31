@@ -3,7 +3,10 @@
 const fs = require('fs');
 const path = require('path');
 const argv = require('optimist').argv;
+const chalk = require('chalk');
 const texturePacker = require('free-tex-packer-core');
+
+const appInfo = require('./package.json');
 
 function isExists(path) {
     return fs.existsSync(path);
@@ -57,9 +60,11 @@ function loadImages(images, files) {
     }
 }
 
+console.log(chalk.yellowBright("Free Texture Packer CLI v." + appInfo.version));
+
 let projectPath = argv.project;
 if(!projectPath) {
-    console.error('Choose project, using --project argument');
+    console.log(chalk.redBright('Choose project, using --project argument'));
     process.exit();
 }
 
@@ -80,7 +85,7 @@ fs.readFile(projectPath, (err, content) => {
         project = JSON.parse(content);
     }
     catch(e) {
-        console.error('Unsupported project format ' + projectPath);
+        console.log(chalk.redBright('Unsupported project format ' + projectPath));
         process.exit();
     }
 
@@ -112,16 +117,20 @@ fs.readFile(projectPath, (err, content) => {
     if(options.exporter === 'Starling') options.exporter = 'Starling';
 
     if(options.exporter === 'custom') {
-        console.error('CLI does not support a custom exporter');
+        console.log(chalk.redBright('CLI does not support a custom exporter'));
         process.exit();
     }
+    
+    console.log(chalk.white('Start packing ' + chalk.magentaBright(projectPath)));
 
     texturePacker(files, options, (files) => {
         for(let file of files) {
-            fs.writeFileSync(outputPath + '/' + file.name, file.buffer);
+            let out = path.resolve(outputPath, file.name);
+            console.log('Writing ' + chalk.greenBright(out));
+            fs.writeFileSync(out, file.buffer);
         }
 
-        console.log("Done");
+        console.log(chalk.yellowBright("Done"));
     });
 });
 
