@@ -121,6 +121,8 @@ fs.readFile(projectPath, (err, content) => {
         process.exit();
     }
     
+    options.appInfo = appInfo;
+    
     console.log(chalk.white('Start packing ') + chalk.magentaBright(projectPath));
 
     texturePacker(files, options, (files) => {
