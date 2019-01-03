@@ -60,7 +60,7 @@ function loadImages(images, files) {
     }
 }
 
-console.log(chalk.yellowBright("Free Texture Packer CLI v." + appInfo.version));
+console.log(chalk.yellowBright("Free Texture Packer CLI v" + appInfo.version));
 
 let projectPath = argv.project;
 if(!projectPath) {
