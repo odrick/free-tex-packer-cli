@@ -68,11 +68,6 @@ if(!projectPath) {
     process.exit();
 }
 
-let outputPath = argv.output;
-if(!outputPath) {
-    outputPath = path.dirname(projectPath);
-}
-
 fs.readFile(projectPath, (err, content) => {
     if(err) {
         console.error(err.toString());
@@ -87,6 +82,16 @@ fs.readFile(projectPath, (err, content) => {
     catch(e) {
         console.log(chalk.redBright('Unsupported project format ' + projectPath));
         process.exit();
+    }
+
+    let outputPath = argv.output;
+
+    if(!outputPath) {
+        outputPath = project.savePath;
+    }
+
+    if(!outputPath) {
+        outputPath = path.dirname(projectPath);
     }
 
     let files = [];
