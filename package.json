@@ -1,7 +1,7 @@
 {
   "name": "free-tex-packer-cli",
   "displayName": "Free texture packer CLI",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Free texture packer CLI",
   "url": "http://github.com/odrick/free-tex-packer-cli",
   "main": "index.js",
