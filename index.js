@@ -116,6 +116,7 @@ fs.readFile(projectPath, (err, content) => {
     if(options.exporter === 'pixi.js') options.exporter = 'Pixi';
     if(options.exporter === 'Phaser (hash)') options.exporter = 'PhaserHash';
     if(options.exporter === 'Phaser (array)') options.exporter = 'PhaserArray';
+    if(options.exporter === 'Phaser 3') options.exporter = 'Phaser3';
     if(options.exporter === 'Spine') options.exporter = 'Spine';
     if(options.exporter === 'cocos2d') options.exporter = 'Cocos2d';
     if(options.exporter === 'UnrealEngine') options.exporter = 'Unreal';
