@@ -121,6 +121,7 @@ fs.readFile(projectPath, (err, content) => {
     if(options.exporter === 'cocos2d') options.exporter = 'Cocos2d';
     if(options.exporter === 'UnrealEngine') options.exporter = 'Unreal';
     if(options.exporter === 'Starling') options.exporter = 'Starling';
+    if(options.exporter === 'Unity3D') options.exporter = 'Unity3D';
 
     if(options.exporter === 'custom') {
         console.log(chalk.redBright('CLI does not support a custom exporter'));
