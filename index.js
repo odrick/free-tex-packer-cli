@@ -122,6 +122,8 @@ fs.readFile(projectPath, (err, content) => {
     if(options.exporter === 'UnrealEngine') options.exporter = 'Unreal';
     if(options.exporter === 'Starling') options.exporter = 'Starling';
     if(options.exporter === 'Unity3D') options.exporter = 'Unity3D';
+    if(options.exporter === 'Godot (atlas)') options.exporter = 'GodotAtlas';
+    if(options.exporter === 'Godot (tileset)') options.exporter = 'GodotTileset';
 
     if(options.exporter === 'custom') {
         console.log(chalk.redBright('CLI does not support a custom exporter'));
