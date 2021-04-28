@@ -1,7 +1,7 @@
 {
   "name": "free-tex-packer-cli",
   "displayName": "Free texture packer CLI",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "Free texture packer CLI",
   "url": "http://github.com/odrick/free-tex-packer-cli",
   "main": "index.js",
@@ -28,7 +28,7 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.1",
-    "free-tex-packer-core": "^0.3.3",
+    "free-tex-packer-core": "^0.3.4",
     "optimist": "^0.6.1"
   }
 }
