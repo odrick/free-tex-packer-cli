@@ -134,8 +134,13 @@ fs.readFile(projectPath, (err, content) => {
     
     console.log(chalk.white('Start packing ') + chalk.magentaBright(projectPath));
 
-    texturePacker(files, options, (files) => {
-        for(let file of files) {
+    texturePacker(files, options, (result, err) => {
+        if(err) {
+            let msg = err.description || err.message || String(err);
+            console.error(chalk.redBright('Texture pack failed: ') + msg);
+            process.exit(1);
+        }
+        for(let file of result) {
             let out = path.resolve(outputPath, file.name);
             console.log(chalk.white('Writing ') + chalk.greenBright(out));
             fs.writeFileSync(out, file.buffer);
