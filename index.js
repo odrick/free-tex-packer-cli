@@ -99,7 +99,20 @@ function fail(message, details = []) {
         console.error('  ' + line);
     }
     process.exitCode = 1;
+    runReported = true;
 }
+
+// Set when the run has ended with a success message or a reported failure.
+let runReported = false;
+
+// free-tex-packer-core does not always call back (e.g. when none of the images can be decoded) and the process
+// then simply runs out of work. Never leave such a run looking successful.
+process.on('exit', () => {
+    if(!runReported) {
+        console.error(chalk.redBright('Packing did not finish, no result was written.'));
+        process.exitCode = 1;
+    }
+});
 
 function loadImages(images, files, problems) {
     for(let image of images) {
@@ -138,11 +151,13 @@ function main() {
 
     if(argv.help) {
         console.log(USAGE);
+        runReported = true;
         return;
     }
 
     if(argv.version) {
         console.log(appInfo.version);
+        runReported = true;
         return;
     }
 
@@ -234,14 +249,24 @@ function main() {
     // free-tex-packer-core skips images it cannot decode and only reports that with console.error.
     // Catch these reports, an atlas without some of its sprites must not be written silently.
     let skipped = [];
+    let finished = false;
+    let finish;
     let originalConsoleError = console.error;
     console.error = (...args) => {
         let match = /^free-tex-packer-core: Error reading (.+)$/.exec(args.join(' '));
-        if(match) skipped.push(match[1]);
+        if(match) {
+            skipped.push(match[1]);
+
+            // Nothing can be packed, the packer will never call back.
+            if(skipped.length === files.length) finish();
+        }
         else originalConsoleError.apply(console, args);
     };
 
-    let finish = (result, error) => {
+    finish = (result, error) => {
+        if(finished) return;
+        finished = true;
+
         console.error = originalConsoleError;
 
         if(error) {
@@ -269,6 +294,7 @@ function main() {
             return;
         }
 
+        runReported = true;
         console.log(chalk.yellowBright('Done'));
     };
 
