@@ -105,8 +105,7 @@ function fail(message, details = []) {
 // Set when the run has ended with a success message or a reported failure.
 let runReported = false;
 
-// free-tex-packer-core does not always call back (e.g. when none of the images can be decoded) and the process
-// then simply runs out of work. Never leave such a run looking successful.
+// Safety net: if the packer never calls back the process just runs out of work. Never leave such a run looking successful.
 process.on('exit', () => {
     if(!runReported) {
         console.error(chalk.redBright('Packing did not finish, no result was written.'));
@@ -246,37 +245,13 @@ function main() {
 
     console.log(chalk.white('Start packing ') + chalk.magentaBright(projectPath));
 
-    // free-tex-packer-core skips images it cannot decode and only reports that with console.error.
-    // Catch these reports, an atlas without some of its sprites must not be written silently.
-    let skipped = [];
     let finished = false;
-    let finish;
-    let originalConsoleError = console.error;
-    console.error = (...args) => {
-        let match = /^free-tex-packer-core: Error reading (.+)$/.exec(args.join(' '));
-        if(match) {
-            skipped.push(match[1]);
-
-            // Nothing can be packed, the packer will never call back.
-            if(skipped.length === files.length) finish();
-        }
-        else originalConsoleError.apply(console, args);
-    };
-
-    finish = (result, error) => {
+    let finish = (result, error) => {
         if(finished) return;
         finished = true;
 
-        console.error = originalConsoleError;
-
         if(error) {
             fail('Packing failed: ' + describeError(error));
-            return;
-        }
-
-        if(skipped.length) {
-            fail('Cannot start packing, ' + skipped.length + (skipped.length === 1 ? ' image is' : ' images are') + ' not a valid image:',
-                skipped.map(name => 'Cannot decode image ' + name));
             return;
         }
 

@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "free-tex-packer-core": "^0.4.0"
+    "free-tex-packer-core": "^0.5.0"
   }
 }
