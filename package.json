@@ -5,7 +5,9 @@
   "description": "Free texture packer CLI",
   "url": "http://github.com/odrick/free-tex-packer-cli",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "node --test"
+  },
   "keywords": [
     "texture",
     "packer",
