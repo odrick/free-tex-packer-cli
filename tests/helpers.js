@@ -63,6 +63,12 @@ function sprite(width, height, margin, color) {
 	);
 }
 
+/** Two tiny lossless WebP sprites (14x10 and 8x12, with a transparent margin), made once with sharp. */
+const WEBP = {
+	orange: Buffer.from("UklGRioAAABXRUJQVlA4TB4AAAAvDUACEA8weKM/FPMf8CDMNqrB/F3vfQwR/Q9YDwA=", "base64"),
+	blue: Buffer.from("UklGRiYAAABXRUJQVlA4TBkAAAAvB8ACEA8woEMx+vMf8BAIJJGPP0NE/0MDAA==", "base64"),
+};
+
 // ---- workspace, project files, CLI runner -------------------------------------------------------
 
 const PROJECT_EXPORTERS = {
@@ -162,4 +168,4 @@ function run(args, options = {}) {
 	return { status: result.status, stdout: result.stdout, stderr: result.stderr, output: result.stdout + result.stderr };
 }
 
-module.exports = { makePng, sprite, makeWorkspace, run, PROJECT_EXPORTERS, DEFAULT_PACK_OPTIONS, CLI };
+module.exports = { makePng, sprite, WEBP, makeWorkspace, run, PROJECT_EXPORTERS, DEFAULT_PACK_OPTIONS, CLI };
