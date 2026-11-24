@@ -1,10 +1,16 @@
 {
   "name": "free-tex-packer-cli",
   "displayName": "Free texture packer CLI",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Free texture packer CLI",
-  "url": "http://github.com/odrick/free-tex-packer-cli",
+  "url": "https://github.com/odrick/free-tex-packer-cli",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "node --test"
   },
@@ -28,8 +34,12 @@
     "url": "git+https://github.com/odrick/free-tex-packer-cli"
   },
   "license": "MIT",
+  "homepage": "https://github.com/odrick/free-tex-packer-cli#readme",
+  "bugs": {
+    "url": "https://github.com/odrick/free-tex-packer-cli/issues"
+  },
   "dependencies": {
     "chalk": "^4.1.2",
-    "free-tex-packer-core": "^0.3.4"
+    "free-tex-packer-core": "^0.4.0"
   }
 }
