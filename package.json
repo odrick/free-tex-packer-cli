@@ -26,12 +26,12 @@
     "2d"
   ],
   "bin": {
-    "free-tex-packer-cli": "./index.js"
+    "free-tex-packer-cli": "index.js"
   },
   "author": "Alexander Norinchak",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/odrick/free-tex-packer-cli"
+    "url": "git+https://github.com/odrick/free-tex-packer-cli.git"
   },
   "license": "MIT",
   "homepage": "https://github.com/odrick/free-tex-packer-cli#readme",
