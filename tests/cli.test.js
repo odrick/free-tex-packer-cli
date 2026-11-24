@@ -158,6 +158,25 @@ describe("exit codes and error messages", () => {
 		assert.match(result.stderr, /--project/);
 	});
 
+	it("understands the short flags -h and -v", () => {
+		assert.match(run(["-h"]).stdout, /Usage/i);
+		const version = run(["-v"]);
+		assert.equal(version.status, 0, version.output);
+		assert.equal(version.stdout.trim(), pkg.version);
+	});
+
+	it("does not take a following option for the value of --project or --output", () => {
+		const project = run(["--project", "--output", freshOut()]);
+		assert.equal(project.status, 1);
+		noStackTrace(project);
+		assert.match(project.stderr, /--project/);
+
+		const output = run(["--project", ws.project(), "--output"]);
+		assert.equal(output.status, 1);
+		noStackTrace(output);
+		assert.match(output.stderr, /--output/);
+	});
+
 	it("fails when the project file does not exist", () => {
 		const missing = path.join(ws.dir, "nope.ftpp");
 		const result = run(["--project", missing, "--output", freshOut()]);

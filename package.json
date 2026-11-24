@@ -29,8 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.4.1",
-    "free-tex-packer-core": "^0.3.4",
-    "optimist": "^0.6.1"
+    "chalk": "^4.1.2",
+    "free-tex-packer-core": "^0.3.4"
   }
 }

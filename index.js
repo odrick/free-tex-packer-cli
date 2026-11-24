@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const argv = require('optimist').argv;
+const {parseArgs} = require('util');
 const chalk = require('chalk');
 const texturePacker = require('free-tex-packer-core');
 
@@ -117,21 +117,39 @@ function loadImages(images, files, problems) {
     }
 }
 
+/** Value of a --option, or undefined when it is missing (a following --option is not a value). */
+function optionValue(value) {
+    return typeof value === 'string' && value && value.indexOf('--') !== 0 ? value : undefined;
+}
+
 function main() {
-    if(argv.help || argv.h) {
+    // Not strict: unknown options are ignored, like before.
+    let argv = parseArgs({
+        args: process.argv.slice(2),
+        options: {
+            project: {type: 'string'},
+            output: {type: 'string'},
+            help: {type: 'boolean', short: 'h'},
+            version: {type: 'boolean', short: 'v'}
+        },
+        strict: false,
+        allowPositionals: true
+    }).values;
+
+    if(argv.help) {
         console.log(USAGE);
         return;
     }
 
-    if(argv.version || argv.v) {
+    if(argv.version) {
         console.log(appInfo.version);
         return;
     }
 
     console.log(chalk.yellowBright('Free Texture Packer CLI v' + appInfo.version));
 
-    let projectPath = argv.project;
-    if(typeof projectPath !== 'string' || !projectPath) {
+    let projectPath = optionValue(argv.project);
+    if(!projectPath) {
         fail('Choose project, using --project argument', ['Run with --help for usage.']);
         return;
     }
@@ -160,8 +178,8 @@ function main() {
         return;
     }
 
-    let outputPath = argv.output;
-    if(outputPath !== undefined && (typeof outputPath !== 'string' || !outputPath)) {
+    let outputPath = optionValue(argv.output);
+    if(argv.output !== undefined && !outputPath) {
         fail('Choose the output folder, using --output argument');
         return;
     }
