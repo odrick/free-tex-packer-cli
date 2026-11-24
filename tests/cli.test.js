@@ -251,6 +251,19 @@ describe("unavailable images", () => {
 		assert.match(result.stderr, /b-missing\.png/);
 	});
 
+	it("fails when none of the images can be decoded (the packer never calls back then)", () => {
+		const out = freshOut();
+		const bad = path.join(ws.dir, "images", "only-corrupt.png");
+		fs.writeFileSync(bad, Buffer.from("this is not a png"));
+		const project = ws.project({ images: [{ name: "only-corrupt.png", path: bad, folder: "" }] });
+		const result = run(["--project", project, "--output", out]);
+		fs.rmSync(bad);
+		assert.equal(result.status, 1, "exit code, output was:\n" + result.output);
+		noStackTrace(result);
+		assert.match(result.stderr, /only-corrupt\.png/);
+		assert.deepEqual(listFiles(out), []);
+	});
+
 	it("a file that is not a valid image fails the run and writes nothing", () => {
 		const out = freshOut();
 		const bad = path.join(ws.dir, "images", "corrupt.png");

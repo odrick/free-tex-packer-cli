@@ -32,6 +32,10 @@ $ free-tex-packer-cli --project /path/to/project.ftpp --output /path/to/output/f
 
 The output folder is created if it does not exist. The custom exporter is not supported by the CLI.
 
+Images can be PNG, JPEG or WebP. Project folders are scanned for `.png`, `.jpg`, `.jpeg` and `.webp` files (other files are
+ignored); images listed in the project are loaded as they are. The texture format (`png`, `jpg` or `webp`) is set in the
+project's pack options.
+
 # Exit code
 
 * `0` - the sprite sheet was written
